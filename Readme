@@ -35,17 +35,11 @@ Database Initialization:
 The SQLite database file (totally_not_my_privateKeys.db) will be automatically created/opened when running the Flask application.
 Running the Application:
 
-Navigate to the directory containing the Python script (app.py) in your terminal.
+Navigate to the directory containing the Python script  in the terminal.
 Run the Flask application using the following command:
 Copy code
-python app.py
-Testing:
+python jwks2.py
 
-Use the provided test suite (test_jwks.py) to validate the functionality of the JWKS server.
-Ensure the Flask application is running before executing the test suite.
-Run the test suite using the following command:
-Copy code
-python test_jwks.py
 Endpoints:
 
 JWKS Endpoint:
