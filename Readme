@@ -1,56 +1,23 @@
-Objective:
-The objective of this project is to enhance a JSON Web Key Set (JWKS) server by integrating SQLite, a lightweight relational database, to store private keys securely. This enhancement aims to fortify the JWKS server against potential vulnerabilities like SQL injection attacks while ensuring the persistence of private keys even in the event of server restarts or migrations.
+The objective of this project is to enhance the security and functionality of a JWKS (JSON Web Key Set) server by implementing AES encryption for private keys, adding user registration capabilities, logging authentication requests, and optionally introducing a rate limiter to control request frequency.
 
-Features:
+Requirements:
+AES Encryption of Private Keys
+Encrypt private keys in the database using symmetric AES encryption.
+Use a key provided from the environment variable named NOT_MY_KEY for encryption and decryption.
+Ensure the encryption process is secure and the key is never exposed.
+User Registration
+Create a users table in the database with appropriate fields for storing user information and hashed passwords.
+Implement a POST:/register endpoint that accepts user registration details, generates a secure password, and stores user details securely.
+Logging Authentication Requests
+Create a auth_logs table to log authentication requests with details such as request IP address and timestamp.
+Log authentication requests for each POST:/auth request.
+Rate Limiter (Optional)
+Implement a time-window rate limiter for the POST:/auth endpoint to limit requests per second.
+Return a 429 Too Many Requests status code for requests over the limit.
 
-SQLite Integration: Utilize SQLite as a backend database to store private keys securely.
-Database Initialization: Automatically create/open a SQLite database file at the start of the application.
-Private Key Management: Generate RSA key pairs and save them to the SQLite database.
-JWKS Endpoint: Provide an endpoint (/.well-known/jwks.json) to serve the JWKS containing valid (non-expired) private keys.
-Authentication Endpoint: Implement an endpoint (/auth) to authenticate users and issue JSON Web Tokens (JWTs) signed with the private keys.
-
-
-Project 2: Enhanced JWKS Server with SQLite
-
-Objective:
-The objective of this project is to enhance a JSON Web Key Set (JWKS) server by integrating SQLite, a lightweight relational database, to store private keys securely. This enhancement aims to fortify the JWKS server against potential vulnerabilities like SQL injection attacks while ensuring the persistence of private keys even in the event of server restarts or migrations.
-
-Features:
-
-SQLite Integration: Utilize SQLite as a backend database to store private keys securely.
-Database Initialization: Automatically create/open a SQLite database file at the start of the application.
-Private Key Management: Generate RSA key pairs and save them to the SQLite database.
-JWKS Endpoint: Provide an endpoint (/.well-known/jwks.json) to serve the JWKS containing valid (non-expired) private keys.
-Authentication Endpoint: Implement an endpoint (/auth) to authenticate users and issue JSON Web Tokens (JWTs) signed with the private keys.
-How to Run the Code:
-
-Installation:
-
-Ensure you have Python installed on your system.
-Install the required dependencies listed in the requirements.txt file using pip:
-Copy code
-pip install -r requirements.txt
-Database Initialization:
-
-The SQLite database file (totally_not_my_privateKeys.db) will be automatically created/opened when running the Flask application.
-Running the Application:
-
-Navigate to the directory containing the Python script  in the terminal.
-Run the Flask application using the following command:
-Copy code
-python jwks2.py
-
-Endpoints:
-
-JWKS Endpoint:
-URL: /well-known/jwks.json
-Method: GET
-Description: Retrieves the JWKS containing valid private keys from the SQLite database.
-Authentication Endpoint:
-URL: /auth
-Method: POST
-Parameters:
-username (string): User's username.
-password (string): User's password.
-expired (boolean, optional): Specifies whether to use an expired private key.
-Description: Authenticates users and issues JWTs signed with private keys retrieved from the SQLite database.
+Setup and Usage:
+install the required dependencies using pip install -r requirements.txt.
+Install the argon2 package using pip install argon2.
+Set up the environment variable NOT_MY_KEY with the AES encryption key.
+Ensure that your database server is running and accessible.
+Run the JWKS server using python jwks_server.py.
